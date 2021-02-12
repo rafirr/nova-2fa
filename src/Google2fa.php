@@ -120,10 +120,10 @@ class Google2fa extends Tool
                 $value = password_hash($value, config('screen2fa.recovery_codes.hashing_algorithm'));
             });
 
-            User2fa::where('user_id', auth()->user()->id)->delete();
+            User2fa::where('admin_id', auth()->user()->id)->delete();
 
             $user2fa = new User2fa();
-            $user2fa->user_id = auth()->user()->id;
+            $user2fa->admin_id = auth()->user()->id;
             $user2fa->google2fa_secret = $secretKey;
             $user2fa->recovery = json_encode($recoveryHashes);
             $user2fa->save();
