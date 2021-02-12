@@ -19,8 +19,8 @@ class ToolServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             // Publishing the configuration file.
             $this->publishes([
-                __DIR__ . '/../config/google2fa.php' => config_path('google2fa.php'),
-            ], 'google2fa.config');
+                __DIR__ . '/../config/screen2fa.php' => config_path('screen2fa.php'),
+            ], 'screen2fa.config');
 
             // Publishing the migrations.
             $this->publishes([
@@ -57,6 +57,6 @@ class ToolServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/google2fa.php', 'google2fa');
+        $this->mergeConfigFrom(__DIR__ . '/../config/screen2fa.php', 'screen2fa');
     }
 }
