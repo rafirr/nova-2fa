@@ -50,10 +50,10 @@ class Google2fa
                 ->setChars(config('screen2fa.recovery_codes.chars_in_block'))
                 ->toArray();
 
-            User2fa::where('user_id', auth()->user()->id)->delete();
+            User2fa::where('admin_id', auth()->user()->id)->delete();
 
             $user2fa = new User2fa();
-            $user2fa->user_id = auth()->user()->id;
+            $user2fa->admin_id = auth()->user()->id;
             $user2fa->google2fa_secret = $secretKey;
             $user2fa->recovery = json_encode($data['recovery']);
             $user2fa->save();
