@@ -13,9 +13,9 @@ class CreateUser2faTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_2fa', function (Blueprint $table) {
+        Schema::create('admins_2fa', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('admin_id');
             $table->boolean('google2fa_enable')->default(false);
             $table->string('google2fa_secret')->nullable();
             $table->text('recovery')->nullable();
@@ -30,6 +30,6 @@ class CreateUser2faTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_2fa');
+        Schema::dropIfExists('admin_2fa');
     }
 }
