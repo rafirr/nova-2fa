@@ -14,7 +14,7 @@ class User2fa extends Model
     /**
      * @var string
      */
-    protected $table   = 'user_2fa';
+    protected $table   = 'admins_2fa';
 
     protected $guarded = [];
 
