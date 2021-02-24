@@ -26,6 +26,11 @@ class ToolServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../database/migrations/' => database_path('migrations')
             ], 'migrations');
+            
+            // Publishing the views.
+            $this->publishes([
+                __DIR__.'/../resources/views/' => base_path('resources/views/vendor/nova-google2fa')
+            ], 'views');
         }
 
         $this->app->booted(function () {
