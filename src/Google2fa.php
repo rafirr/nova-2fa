@@ -85,6 +85,10 @@ class Google2fa extends Tool
 
     private function isRecoveryValid($recover, $recoveryHashes)
     {
+        if (config('screen2fa.recovery_codes.disabled')) {
+            return false;
+        }
+
         foreach ($recoveryHashes as $recoveryHash) {
             if (password_verify($recover, $recoveryHash)) {
                 return true;
@@ -100,7 +104,7 @@ class Google2fa extends Tool
     public function authenticate()
     {
         if ($recover = Request::get('recover')) {
-            if ($this->isRecoveryValid($recover, json_decode(auth()->user()->user2fa->recovery, true)) === false) {
+            if (config('screen2fa.recovery_codes.disabled') || $this->isRecoveryValid($recover, json_decode(auth()->user()->user2fa->recovery, true)) === false) {
                 $data['error'] = 'Recovery key is invalid.';
 
                 return view('nova-google2fa::authenticate', $data);
@@ -125,7 +129,7 @@ class Google2fa extends Tool
             $user2fa = new User2fa();
             $user2fa->admin_id = auth()->user()->id;
             $user2fa->google2fa_secret = $secretKey;
-            $user2fa->recovery = json_encode($recoveryHashes);
+            $user2fa->recovery = json_encode(config('screen2fa.recovery_codes.disabled') ? [] : $recoveryHashes);
             $user2fa->save();
 
             return response(view('nova-google2fa::recovery', $data));
